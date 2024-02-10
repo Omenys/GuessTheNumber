@@ -34,7 +34,8 @@ public class GuessTheNumber : MonoBehaviour
         numberOfGuesses = 3;
 
         // Update the header text to let the player know how many attempts are remaining
-        header.text = numberOfGuesses.ToString() + " guesses remaining";
+        //header.text = numberOfGuesses.ToString() + " guesses remaining";
+
         // Clear the text in the input field
         inputField.text = "Enter your guess...";
     }
@@ -45,7 +46,7 @@ public class GuessTheNumber : MonoBehaviour
         int input = 0;
 
         // Update header text if correct
-        if (input == number)
+        if (input == number && numberOfGuesses > 0)
         {
             header.text = "You won!";
         }
@@ -53,9 +54,13 @@ public class GuessTheNumber : MonoBehaviour
         else
         {
             header.text = "Try again!";
+
+            // Decrease remaining attempts
+            numberOfGuesses = numberOfGuesses - 1;
+            header.text = numberOfGuesses.ToString() + " guesses remaining";
         }
-        // Decrease remaining attempts
-        numberOfGuesses = numberOfGuesses - 1;
+
+
 
     }
 

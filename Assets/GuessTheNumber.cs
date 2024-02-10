@@ -30,7 +30,7 @@ public class GuessTheNumber : MonoBehaviour
 
         // Choose the random number that the player must guess (1-10)
         number = Random.Range(1, 11);
-        Debug.Log(number);
+        //Debug.Log(number);
 
         // Update guesses remaining
         numberOfGuesses = 3;
@@ -48,7 +48,13 @@ public class GuessTheNumber : MonoBehaviour
         // Store user input
         int input;
 
-        int.TryParse(inputField.text, out input);
+        if (!int.TryParse(inputField.text, out input))
+        {
+            header.text = "Invalid input!";
+            return;
+        }
+        // Decrease remaining attempts
+        numberOfGuesses = numberOfGuesses - 1;
 
         // Update header text if correct
         if (input == number)
@@ -56,25 +62,16 @@ public class GuessTheNumber : MonoBehaviour
             header.text = "You won!";
         }
         // Update header text if incorrect
-        else if (input != number && numberOfGuesses != 0)
+        else if (numberOfGuesses > 0)
         {
-
-            // Decrease remaining attempts
-            numberOfGuesses = numberOfGuesses - 1;
-
-            // If guess incorrect and guesses remaining
-            if (numberOfGuesses != 0)
-            {
-                // Display try again
-                header.text = "Try again! " + numberOfGuesses.ToString() + " guesses remaining";
-            }
-            // If guess incorrect and guesses depleted
-            else
-            {
-                header.text = "Game Over!";
-            }
+            // Display try again
+            header.text = "Try again! " + numberOfGuesses.ToString() + " guesses remaining";
         }
-
+        // If guess incorrect and guesses depleted
+        else
+        {
+            header.text = "Game Over!";
+        }
     }
 
 }

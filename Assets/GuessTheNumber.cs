@@ -4,7 +4,7 @@ using UnityEngine;
 public class GuessTheNumber : MonoBehaviour
 {
     [SerializeField] TMP_Text header;
-    [SerializeField] TMP_Text inputField;
+    [SerializeField] TMP_InputField inputField;
     int number = 0;
     int numberOfGuesses = 0;
 
@@ -29,6 +29,7 @@ public class GuessTheNumber : MonoBehaviour
     {
         // Choose the random number that the player must guess (1-10)
         number = Random.Range(1, 11);
+        Debug.Log(number);
 
         // Guesses remaining
         numberOfGuesses = 3;
@@ -43,10 +44,12 @@ public class GuessTheNumber : MonoBehaviour
     public void SubmitGuess()
     {
         // Store user input
-        int input = 0;
+        int input;
+
+        int.TryParse(inputField.text, out input);
 
         // Update header text if correct
-        if (input == number && numberOfGuesses != 0)
+        if (input == number)
         {
             header.text = "You won!";
         }
@@ -58,15 +61,19 @@ public class GuessTheNumber : MonoBehaviour
 
             // Decrease remaining attempts
             numberOfGuesses = numberOfGuesses - 1;
+
+            // If guess incorrect and guesses remaining
             if (numberOfGuesses != 0)
             {
                 header.text = numberOfGuesses.ToString() + " guesses remaining";
             }
-            else //if (input != number || numberOfGuesses == 0)
+            // If guess incorrect and guesses depleted
+            else
             {
                 header.text = "Game Over!";
             }
         }
+
 
 
 

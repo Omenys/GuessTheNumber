@@ -46,19 +46,28 @@ public class GuessTheNumber : MonoBehaviour
         int input = 0;
 
         // Update header text if correct
-        if (input == number && numberOfGuesses > 0)
+        if (input == number && numberOfGuesses != 0)
         {
             header.text = "You won!";
         }
         // Update header text if incorrect
-        else
+        else if (input != number && numberOfGuesses != 0)
         {
+            // Display try again
             header.text = "Try again!";
 
             // Decrease remaining attempts
             numberOfGuesses = numberOfGuesses - 1;
-            header.text = numberOfGuesses.ToString() + " guesses remaining";
+            if (numberOfGuesses != 0)
+            {
+                header.text = numberOfGuesses.ToString() + " guesses remaining";
+            }
+            else //if (input != number || numberOfGuesses == 0)
+            {
+                header.text = "Game Over!";
+            }
         }
+
 
 
 
